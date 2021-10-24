@@ -1,0 +1,26 @@
+[
+	{
+		"title": "banana",
+		"price": 200,
+		"thumbnail": "https://unsplash.com/photos/sf_1ZDA1YFw",
+		"id": 1
+	},
+	{
+		"title": "Manzana",
+		"price": 500,
+		"thumbnail": "https://unsplash.com/photos/nmpi584DlCo",
+		"id": 2
+	},
+	{
+		"title": "Frutilla",
+		"price": 150,
+		"thumbnail": "https://unsplash.com/photos/MDZOGRtfuAg",
+		"id": 3
+	},
+	{
+		"title": "naranja",
+		"price": 200,
+		"thumbnail": "https://unsplash.com/photos/bHCERo3jLUU",
+		"id": 4
+	}
+]
