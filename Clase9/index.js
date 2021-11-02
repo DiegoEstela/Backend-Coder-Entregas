@@ -1,10 +1,20 @@
 const express = require("express");
 const app = express();
+const hanblebars = require("express-handlebars");
 const fs = require("fs");
-const port = 8080;
+const port = 3030;
 
+app.set("view engine", "hbs");
 app.set("views", "./views");
-app.set("view engine", "ejs");
+
+app.engine(
+  "hbs",
+  hanblebars({
+    extname: "hbs",
+    layoutsDir: "views/layouts",
+    defaultLayout: "index",
+  })
+);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -13,7 +23,7 @@ const Contenedor = require("../Clase4/Clase4");
 const nexCont = new Contenedor("../Clase4/producto.txt");
 
 app.get("/", (req, res) => {
-  res.render("index");
+  res.render("main");
 });
 
 app.get("/form", (req, res) => {
