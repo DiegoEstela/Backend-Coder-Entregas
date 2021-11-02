@@ -21,7 +21,7 @@ router.get("/productos/:id", async (req, res) => {
 
 router.post("/save", async (req, res) => {
   await nexCont.save(req.body);
-  let nombreProduct = req.body.Title;
+  let nombreProduct = req.body.title;
   res.send(`Se guardo el producto ${nombreProduct}`);
 });
 
@@ -32,7 +32,7 @@ router.put("/productos/:id", async (req, res) => {
     return x.id == id;
   });
   data[index].title = req.body.title;
-  data[index].price = req.body.trice;
+  data[index].price = req.body.price;
   res.send(data);
 });
 
