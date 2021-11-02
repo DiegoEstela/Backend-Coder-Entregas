@@ -1,10 +1,10 @@
 const express = require("express");
 const app = express();
 const fs = require("fs");
-const port = 8080;
+const port = 4040;
 
 app.set("views", "./views");
-app.set("view engine", "ejs");
+app.set("view engine", "pug");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
