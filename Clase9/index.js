@@ -3,8 +3,8 @@ const app = express();
 const fs = require("fs");
 const port = 4040;
 
-app.set("views", "./views");
 app.set("view engine", "pug");
+app.set("views", "./views");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
