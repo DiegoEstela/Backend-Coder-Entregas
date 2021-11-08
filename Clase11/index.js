@@ -58,6 +58,6 @@ io.on("connection", (socket) => {
   console.log("Nueva conexion");
 });
 
-app.listen(port, () => {
+server.listen(port, () => {
   console.log("Server running on port: " + port);
 });

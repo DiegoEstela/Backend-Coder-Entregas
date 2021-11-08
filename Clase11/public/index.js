@@ -5,3 +5,5 @@ socket.on("message_back", (data) => {
 
   socket.emit("message_client", "gracias, soy el cliente");
 });
+
+console.log("hola");
