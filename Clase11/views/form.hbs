@@ -1,17 +1,29 @@
 <div class="text-center">
     <h1>Formulario</h1>
     <h2>Agregar una Fruta a la lista</h2>
-    <form class="form " action="/form" method="post" >
+    
+    <form   onsubmit="return addInfo()" >
         <div class="col ">
-          <input type="text" class="form-control" placeholder="Nombre de la Fruta"  name="title">
+          <input type="text" class="form-control" placeholder="Nombre de la Fruta"   id="title">
         </div>
         <div class="col ">
-          <input type="number" class="form-control" placeholder="Precio" name="price">
+          <input type="number" class="form-control" placeholder="Precio" id="price">
         </div>
         <div class="col ">
-            <input type="url" class="form-control" placeholder="Url de imagen" name="thumbnail">
+            <input type="url" class="form-control" placeholder="Url de imagen"  id="thumbnail">
           </div>
-          <button type="submit" class="btn btn-primary">Enviar</button>
+          <input class="btn btn-primary m-2" type="submit" value="Enviar" ></input>
           <a class="btn btn-primary m-2" href="/" role="button">volver al Home</a>
         </form>
+
+      <div id="caja">
+
+
+      </div>
+
+
+
+      <script src="/socket.io/socket.io.js"></script>
+      <script src="./index.js"></script>
+      
 </div>

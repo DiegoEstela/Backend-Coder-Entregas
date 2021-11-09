@@ -40,22 +40,11 @@ app.get("/form", (req, res) => {
   res.render("form");
 });
 
-app.post("/form", async (req, res) => {
-  await nexCont.save(req.body);
-  res.redirect("/productos");
-});
-
-app.get("/productos", async (req, res) => {
-  let data = await nexCont.getAll();
-  if (data.length > 0) {
-    res.render("productos", { data });
-  } else {
-    res.send("No hay productos");
-  }
-});
-
 io.on("connection", (socket) => {
-  console.log("Nueva conexion");
+  socket.on("dataObj", (data) => {
+    io.sockets.emit("back", data);
+    nexCont.save(data);
+  });
 });
 
 server.listen(port, () => {
