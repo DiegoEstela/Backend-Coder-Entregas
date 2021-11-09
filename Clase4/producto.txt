@@ -6,15 +6,9 @@
 		"id": 1
 	},
 	{
-		"title": "123132123",
-		"price": "123123",
+		"title": "asd",
+		"price": "123",
 		"thumbnail": "https://pixabay.com/photos/swan-bird-mute-swan-animal-6649194/",
 		"id": 2
-	},
-	{
-		"title": "123132123",
-		"price": "123123",
-		"thumbnail": "https://pixabay.com/photos/swan-bird-mute-swan-animal-6649194/",
-		"id": 3
 	}
 ]
