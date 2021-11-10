@@ -13,9 +13,13 @@ app.engine(
     extname: "hbs",
     layoutsDir: "views/layouts",
     defaultLayout: "index",
+    partialsDir: "views/partials",
   })
 );
 
+newData = [];
+
+dataMens = [];
 // archivos estaticos
 app.use(express.static(__dirname + "/public"));
 
@@ -31,19 +35,27 @@ app.use(express.urlencoded({ extended: true }));
 
 const Contenedor = require("../Clase4/Clase4");
 const nexCont = new Contenedor("../Clase4/producto.txt");
+const mensajes = new Contenedor("./mensajes.txt");
 
 app.get("/", (req, res) => {
   res.render("main");
 });
 
-app.get("/form", (req, res) => {
+app.get("/form", async (req, res) => {
   res.render("form");
 });
 
 io.on("connection", (socket) => {
   socket.on("dataObj", (data) => {
-    io.sockets.emit("back", data);
     nexCont.save(data);
+    newData.push(data);
+    io.sockets.emit("back", newData);
+  });
+
+  socket.on("dataMensaje", (data) => {
+    mensajes.save(data);
+    dataMens.push(data);
+    io.sockets.emit("backMensaje", dataMens);
   });
 });
 

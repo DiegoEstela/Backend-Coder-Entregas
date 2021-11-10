@@ -36,7 +36,6 @@ class Contenedor {
     const id = data.length + 1;
     await setData(this.file, [...data, { ...objeto, id: id }]);
   };
-
   getById = async (id) => {
     let data = await obtData(this.file);
     if (data) {
