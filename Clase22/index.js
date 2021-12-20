@@ -1,15 +1,17 @@
 const express = require("express");
 const app = express();
 const port = process.env.PORT || 8080;
-const knex = require("./db");
+const knex = require("./dbknex");
+require("./dbMongodb");
 const products = require("./products");
-const Mensajes = require("./sms");
+const sms = require("./sms");
+
 const faker = require("faker");
 const { normalize, schema } = require("normalizr");
 const util = require("util");
 
-const sms = new Mensajes();
 const prod = new products();
+const smsM = new sms();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -42,21 +44,6 @@ for (let i = 0; i < 5; i++) {
 
 // schema de sms
 
-const authorSchema = new schema.Entity(
-  "nombre",
-  "apellido",
-  "edad",
-  "alias",
-  "avatar",
-  { idAttribute: "id" }
-);
-
-const textSchema = new schema.Entity("mensaje");
-const smsSchema = new schema.Entity("sms", {
-  author: authorSchema,
-  Mensaje: textSchema,
-});
-
 function print(obj) {
   console.log(util.inspect(obj, false, 12, true));
 }
@@ -76,12 +63,13 @@ app.get("/productos-test", (req, res) => {
 io.on("connection", async (socket) => {
   socket.on("dataObj", async (data) => {
     await prod.save(data);
-
     io.sockets.emit("back", productosFaker);
   });
 
   socket.on("dataMensaje", async (data) => {
-    console.log(data);
+    await smsM.save(data);
+    let dataSms = await smsM.getAll();
+    console.log(dataSms);
   });
 });
 

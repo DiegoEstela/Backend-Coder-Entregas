@@ -24,21 +24,4 @@ knex.schema
     console.log(err);
   });
 
-knex.schema
-  .createTableIfNotExists("messages", (table) => {
-    table.string("id");
-    table.string("nombre"),
-      table.string("apellido"),
-      table.string("edad"),
-      table.string("alias"),
-      table.string("avatar"),
-      table.string("mensaje");
-  })
-  .then(() => {
-    console.log("Tabla Mensajes Creada");
-  })
-  .catch((err) => {
-    console.log(err);
-  });
-
 module.exports = knex;

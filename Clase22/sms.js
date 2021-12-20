@@ -1,25 +1,28 @@
-const knex = require("./db");
+require("./dbknex");
 
-class Mensajes {
-  constructor() {
-    this.message = [];
+const smsModel = require("./models/smsModel");
+class sms {
+  constructor(mensaje) {
+    this.mensaje = mensaje;
   }
 
-  async save(message) {
-    await knex("messages").insert(message);
+  async save(mensaje) {
+    try {
+      let sms = new smsModel(mensaje);
+      const smsSave = await sms.save();
+      return smsSave;
+    } catch (error) {
+      throw new Error(`Error al guardar: ${error}`);
+    }
   }
-
   async getAll() {
-    let data = [];
-    await knex
-      .select("id", "nombre", "apellido", "edad", "alias", "avatar", "mensaje")
-      .from("messages")
-      .then((res) => {
-        data = res;
-      });
-    //console.log(data);
-    return data;
+    try {
+      const sms = await smsModel.find();
+      return sms;
+    } catch (error) {
+      throw new Error(`Error al obtener: ${error}`);
+    }
   }
 }
 
-module.exports = Mensajes;
+module.exports = sms;
