@@ -26,8 +26,8 @@ knex.schema
 
 knex.schema
   .createTableIfNotExists("messages", (table) => {
-    table.increments("id").primary(),
-      table.string("nombre"),
+    table.string("id");
+    table.string("nombre"),
       table.string("apellido"),
       table.string("edad"),
       table.string("alias"),

@@ -5,6 +5,8 @@ const knex = require("./db");
 const products = require("./products");
 const Mensajes = require("./sms");
 const faker = require("faker");
+const { normalize, schema } = require("normalizr");
+const util = require("util");
 
 const sms = new Mensajes();
 const prod = new products();
@@ -38,6 +40,27 @@ for (let i = 0; i < 5; i++) {
   });
 }
 
+// schema de sms
+
+const authorSchema = new schema.Entity(
+  "nombre",
+  "apellido",
+  "edad",
+  "alias",
+  "avatar",
+  { idAttribute: "id" }
+);
+
+const textSchema = new schema.Entity("mensaje");
+const smsSchema = new schema.Entity("sms", {
+  author: authorSchema,
+  Mensaje: textSchema,
+});
+
+function print(obj) {
+  console.log(util.inspect(obj, false, 12, true));
+}
+
 // Ruta bienvenida
 
 app.get("/", (req, res) => {
@@ -53,15 +76,12 @@ app.get("/productos-test", (req, res) => {
 io.on("connection", async (socket) => {
   socket.on("dataObj", async (data) => {
     await prod.save(data);
-    console.log(data);
+
     io.sockets.emit("back", productosFaker);
   });
 
   socket.on("dataMensaje", async (data) => {
-    await sms.save(data);
-    let getAll = await sms.getAll();
-    console.log(getAll);
-    io.sockets.emit("backMensaje", await sms.getAll());
+    console.log(data);
   });
 });
 

@@ -12,7 +12,7 @@ class Mensajes {
   async getAll() {
     let data = [];
     await knex
-      .select("nombre", "apellido", "edad", "alias", "avatar", "mensaje")
+      .select("id", "nombre", "apellido", "edad", "alias", "avatar", "mensaje")
       .from("messages")
       .then((res) => {
         data = res;

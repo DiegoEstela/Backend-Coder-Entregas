@@ -64,11 +64,14 @@ const renderMens = (data) => {
 
 const addMenssage = () => {
   let dataObj = {
-    nombre: document.querySelector("#name").value,
-    apellido: document.querySelector("#apellido").value,
-    edad: document.querySelector("#edad").value,
-    alias: document.querySelector("#alias").value,
-    avatar: document.querySelector("#avatar").value,
+    author: {
+      id: document.querySelector("#email").value,
+      nombre: document.querySelector("#name").value,
+      apellido: document.querySelector("#apellido").value,
+      edad: document.querySelector("#edad").value,
+      alias: document.querySelector("#alias").value,
+      avatar: document.querySelector("#avatar").value,
+    },
     mensaje: document.querySelector("#mensaje").value,
   };
 
