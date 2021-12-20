@@ -27,12 +27,15 @@ knex.schema
 knex.schema
   .createTableIfNotExists("messages", (table) => {
     table.increments("id").primary(),
-      table.timestamp("fecha").defaultTo(knex.fn.now()),
       table.string("nombre"),
+      table.string("apellido"),
+      table.string("edad"),
+      table.string("alias"),
+      table.string("avatar"),
       table.string("mensaje");
   })
   .then(() => {
-    console.log("Tabla creada");
+    console.log("Tabla Mensajes Creada");
   })
   .catch((err) => {
     console.log(err);

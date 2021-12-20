@@ -19,6 +19,8 @@ const render = (data) => {
               src="${x.foto}"
               alt="${x.foto}"
               class="img-thumbnail"
+              width="50"
+
             />
           </td>
         </tr>`;
@@ -53,7 +55,7 @@ socket.on("backMensaje", (dataMens) => {
 const renderMens = (data) => {
   let html = data
     .map((x) => {
-      return ` <p ><strong class="text-primary">${x.nombre}</strong><span class=" text-danger"> ${x.fecha}</span>: <span class="fst-italic text-success"> ${x.mensaje}</span> </p>`;
+      return ` <p ><strong class="text-primary">${x.nombre}</strong><span class=" text-danger"> ${x.apellido}</span>: <span class="fst-italic text-success"> ${x.mensaje}</span> </p>`;
     })
     .join(" ");
 
@@ -63,6 +65,10 @@ const renderMens = (data) => {
 const addMenssage = () => {
   let dataObj = {
     nombre: document.querySelector("#name").value,
+    apellido: document.querySelector("#apellido").value,
+    edad: document.querySelector("#edad").value,
+    alias: document.querySelector("#alias").value,
+    avatar: document.querySelector("#avatar").value,
     mensaje: document.querySelector("#mensaje").value,
   };
 
