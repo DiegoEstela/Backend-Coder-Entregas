@@ -1,28 +1,39 @@
-require("./dbknex");
+const fs = require("fs");
 
-const smsModel = require("./models/smsModel");
-class sms {
-  constructor(mensaje) {
-    this.mensaje = mensaje;
+// obtener datos
+const obtData = async (file) => {
+  try {
+    const readFile = await fs.promises.readFile(file, "utf-8");
+    if (readFile.length) return await JSON.parse(readFile);
+    else return readFile;
+  } catch (err) {
+    console.log("no se pueden obtener datos", err);
   }
+};
 
-  async save(mensaje) {
-    try {
-      let sms = new smsModel(mensaje);
-      const smsSave = await sms.save();
-      return smsSave;
-    } catch (error) {
-      throw new Error(`Error al guardar: ${error}`);
-    }
+//setear datos
+const setData = async (file, prod) => {
+  try {
+    await fs.promises.writeFile(file, JSON.stringify(prod, null, "\t"));
+  } catch (err) {
+    console.log(err);
   }
-  async getAll() {
-    try {
-      const sms = await smsModel.find();
-      return sms;
-    } catch (error) {
-      throw new Error(`Error al obtener: ${error}`);
-    }
+};
+
+class Mensajes {
+  constructor(file) {
+    this.file = file;
   }
+  save = async (objeto) => {
+    let data = await obtData(this.file);
+    console.log("El archivos es", this.file);
+
+    await setData(this.file, [...data, { ...objeto }]);
+  };
+
+  getAll = async () => {
+    return await obtData(this.file);
+  };
 }
 
-module.exports = sms;
+module.exports = Mensajes;

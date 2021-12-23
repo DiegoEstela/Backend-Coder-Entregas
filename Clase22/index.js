@@ -2,16 +2,16 @@ const express = require("express");
 const app = express();
 const port = process.env.PORT || 8080;
 const knex = require("./dbknex");
-require("./dbMongodb");
+
 const products = require("./products");
-const sms = require("./sms");
+const Mensajes = require("./sms");
+const sms = new Mensajes("sms.txt");
 
 const faker = require("faker");
 const { normalize, schema } = require("normalizr");
 const util = require("util");
 
 const prod = new products();
-const smsM = new sms();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -48,6 +48,14 @@ function print(obj) {
   console.log(util.inspect(obj, false, 12, true));
 }
 
+const authorSchema = new schema.Entity("author");
+const mensajeSchema = new schema.Entity("mensaje");
+
+const smsSchema = new schema.Entity("mensajes", {
+  author: authorSchema,
+  mensaje: mensajeSchema,
+});
+
 // Ruta bienvenida
 
 app.get("/", (req, res) => {
@@ -67,9 +75,10 @@ io.on("connection", async (socket) => {
   });
 
   socket.on("dataMensaje", async (data) => {
-    await smsM.save(data);
-    let dataSms = await smsM.getAll();
-    console.log(dataSms);
+    await sms.save(data);
+    let dataSms = await sms.getAll();
+    let dataNormalizada = normalize(dataSms, smsSchema);
+    print(dataNormalizada);
   });
 });
 
