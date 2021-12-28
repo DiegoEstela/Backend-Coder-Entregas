@@ -66,8 +66,22 @@ app.get("/productos-test", (req, res) => {
   res.sendFile(__dirname + "/public/prod.html");
 });
 
-// Ruta
+// Ruta login
 
+app.get("/login", (req, res) => {
+  res.sendFile(__dirname + "/public/login.html");
+});
+
+app.post("/login", (req, res) => {
+  const user = req.body;
+  if (user.username == "Diego") {
+    console.log(user.username);
+    req.session.user = user.username;
+    res.redirect("/");
+    return;
+  }
+  res.redirect("/login");
+});
 io.on("connection", async (socket) => {
   socket.on("dataObj", async (data) => {
     await prod.save(data);
