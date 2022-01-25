@@ -1,0 +1,5 @@
+modo fork: pm2 start index.js 
+modo fork con watching: pm2 start index.js --watch
+modo fork con puerto: pm2 start index.js --port 8081
+modo cluster: pm2 start index.js -i --watch
+modo cluster con puerto: pm2 start index.js -i --watch --port 8081
